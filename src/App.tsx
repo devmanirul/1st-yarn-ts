@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// App.tsx
+import coursesData from "./data/coursesData.js";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
     <>
-      <div className='flex justify-center'>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="text-5xl text-blue-500 font-bold text-center border-2 border-blue-500 py-10">
+        App
       </div>
-      <h1 className='text-2xl font-bold'>Vite + React</h1>
-      <div className="card">
-        <button className='border-2 px-2 py-1 rounded-md' onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div className="max-w-7xl mx-auto grid grid-cols-4 gap-10 mt-10 mb-7">
+        {coursesData.map(({ description, image, title }) => (
+          <Card
+            title={title}
+            description={description}
+            image={image}
+          />
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
+
+// 👇 Card component with correct TypeScript typing
+type CardProps = {
+  title: string;
+  description: string;
+  image: string;
+};
+
+const Card = ({ title, description, image }: CardProps) => {
+  return (
+    <div className="border-2 border-blue-400 cursor-pointer hover:scale-105 duration-300 p-2 rounded-md ">
+      <img className="rounded-md" src={image} alt="Image" />
+      <h1 className="text-xl font-bold py-1 text-blue-700">{title}</h1>
+      <p className="text-base font-thin">{description}</p>
+    </div>
+  );
+};
